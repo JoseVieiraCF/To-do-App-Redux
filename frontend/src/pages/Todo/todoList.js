@@ -1,9 +1,11 @@
 import React from 'react';
-import Button from '../../template/button'
+import Button from '../../template/button';
+import { connect } from 'react-redux';
 
 
-export default function TodoList(props){
-    const list = props.taskList;
+function TodoList(props){
+    const list = props.list;
+
    const renderRows = list.map(todo => 
             <tr key={todo.id}>
                 <td className={todo.done ? 'markedAsDone' : ''}>
@@ -22,7 +24,7 @@ export default function TodoList(props){
     return(
         <table className="table table-hover tb-list">
             <thead className='thead '>
-                <tr thead-list>
+                <tr>
                     <th>Description</th>
                     <th className='table-actions'>Ações</th>
                 </tr>
@@ -32,5 +34,8 @@ export default function TodoList(props){
             </tbody>
     </table>
     );
-    
 }
+
+const mapStateToProps = state => ({list:state.todo.list});
+
+export default connect(mapStateToProps)(TodoList);
